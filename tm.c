@@ -5,6 +5,7 @@
 /* Kenneth C. Louden                                */
 /****************************************************/
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -354,8 +355,11 @@ STEPRESULT stepTM (void)
       { printf("Enter value for IN instruction: ") ;
         fflush (stdin);
         fflush (stdout);
-        gets(in_Line);
+        fgets(in_Line, sizeof in_Line, stdin);
         lineLen = strlen(in_Line) ;
+        while (lineLen>0 && isspace (in_Line[lineLen-1])) {
+            in_Line[--lineLen]= '\0';
+        }
         inCol = 0;
         ok = getNum();
         if ( ! ok ) printf ("Illegal value\n");
@@ -407,8 +411,12 @@ int doCommand (void)
   { printf ("Enter command: ");
     fflush (stdin);
     fflush (stdout);
-    gets(in_Line);
-    lineLen = strlen(in_Line);
+    fgets(in_Line, sizeof in_Line, stdin);
+    lineLen = strlen(in_Line) ;
+    while (lineLen>0 && isspace (in_Line[lineLen-1])) {
+        in_Line[--lineLen]= '\0';
+    }
+
     inCol = 0;
   }
   while (! getWord ());
@@ -557,7 +565,7 @@ int doCommand (void)
 /* E X E C U T I O N   B E G I N S   H E R E */
 /********************************************/
 
-main( int argc, char * argv[] )
+int main( int argc, char * argv[] )
 { if (argc != 2)
   { printf("usage: %s <filename>\n",argv[0]);
     exit(1);

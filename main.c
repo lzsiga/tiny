@@ -45,8 +45,8 @@ int TraceCode = FALSE;
 
 int Error = FALSE;
 
-main( int argc, char * argv[] )
-{ TreeNode * syntaxTree;
+int main( int argc, char * argv[] )
+{ /* TreeNode * syntaxTree; not used yet */
   char pgm[120]; /* source code file name */
   if (argc != 2)
     { fprintf(stderr,"usage: %s <filename>\n",argv[0]);
